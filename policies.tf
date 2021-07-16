@@ -83,34 +83,6 @@ resource "spacelift_policy_attachment" "task" {
   stack_id  = data.spacelift_current_stack.this.id
 }
 
-# TRIGGER POLICY
-#
-# This example trigger policy will cause every stack that declares dependency on
-# the current one to get triggered the current one is successfully updated.
-#
-# You can read more about trigger policies here:
-#
-# https://docs.spacelift.io/concepts/policy/trigger-policy
-resource "spacelift_policy" "trigger" {
-  type = "TRIGGER"
-
-  name = "Trigger stacks that declare an explicit dependency"
-  body = file("${path.module}/policies/trigger.rego")
-}
-
-# Trigger policies only take effect when attached to the stack.
-resource "spacelift_policy_attachment" "trigger" {
-  policy_id = spacelift_policy.trigger.id
-  stack_id  = data.spacelift_current_stack.this.id
-}
-
-# Let's attach the policy to the current stack, so that the child stack is
-# triggered, too.
-resource "spacelift_policy_attachment" "trigger-self" {
-  policy_id = spacelift_policy.trigger.id
-  stack_id  = data.spacelift_current_stack.this.id
-}
-
 # LOGIN POLICY
 #
 # This example login policy gives everyone in the GitHub organization access to
