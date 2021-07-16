@@ -1,6 +1,6 @@
-# Onboarding repository used for the onboarding tour on the spacelift platform.
+## Onboarding repository used for the onboarding tour on the spacelift platform.
 
-# Interested in more?
+## Interested in more?
 
 - [learn more about policies](https://docs.spacelift.io/concepts/policy) and create one from scratch;
 - create some resources on a real public cloud;
