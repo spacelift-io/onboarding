@@ -16,7 +16,7 @@ resource "spacelift_policy" "access" {
 # Access policies only take effect when attached to the stack.
 resource "spacelift_policy_attachment" "access" {
   policy_id = spacelift_policy.access.id
-  stack_id  = spacelift_stack.managed.id
+  stack_id  = data.spacelift_current_stack.this.id
 }
 
 # PLAN POLICY
@@ -37,7 +37,7 @@ resource "spacelift_policy" "plan" {
 # Plan policies only take effect when attached to the stack.
 resource "spacelift_policy_attachment" "plan" {
   policy_id = spacelift_policy.plan.id
-  stack_id  = spacelift_stack.managed.id
+  stack_id  = data.spacelift_current_stack.this.id
 }
 
 # PUSH POLICY
@@ -60,7 +60,7 @@ resource "spacelift_policy" "push" {
 # Push policies only take effect when attached to the stack.
 resource "spacelift_policy_attachment" "push" {
   policy_id = spacelift_policy.push.id
-  stack_id  = spacelift_stack.managed.id
+  stack_id  = data.spacelift_current_stack.this.id
 }
 
 # TASK POLICY
@@ -80,7 +80,7 @@ resource "spacelift_policy" "task" {
 # Task policies only take effect when attached to the stack.
 resource "spacelift_policy_attachment" "task" {
   policy_id = spacelift_policy.task.id
-  stack_id  = spacelift_stack.managed.id
+  stack_id  = data.spacelift_current_stack.this.id
 }
 
 # TRIGGER POLICY
@@ -101,7 +101,7 @@ resource "spacelift_policy" "trigger" {
 # Trigger policies only take effect when attached to the stack.
 resource "spacelift_policy_attachment" "trigger" {
   policy_id = spacelift_policy.trigger.id
-  stack_id  = spacelift_stack.managed.id
+  stack_id  = data.spacelift_current_stack.this.id
 }
 
 # Let's attach the policy to the current stack, so that the child stack is

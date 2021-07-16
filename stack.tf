@@ -1,27 +1,15 @@
 data "spacelift_current_stack" "this" {}
 
-resource "spacelift_stack" "managed" {
-  name        = "Managed stack"
-  description = "Your first stack managed by Terraform"
-
-  repository   = "terraform-starter"
-  branch       = "main"
-  project_root = "managed-stack"
-
-  autodeploy = true
-  labels     = ["managed", "depends-on:${data.spacelift_current_stack.this.id}"]
-}
-
 # This is an environment variable defined on the stack level. Stack-level
 # environment variables take precedence over those attached via contexts.
-# This evironment variable has its write_only bit explicitly set to false, which
-# means that you'll be able to read back its valie from both the GUI and the API.
+# This environment variable has its write_only bit explicitly set to false, which
+# means that you'll be able to read back its value from both the GUI and the API.
 #
 # You can read more about environment variables here:
 #
 # https://docs.spacelift.io/concepts/environment#environment-variables
 resource "spacelift_environment_variable" "stack-plaintext" {
-  stack_id   = spacelift_stack.managed.id
+  stack_id   = data.spacelift_current_stack.this.id
   name       = "STACK_PUBLIC"
   value      = "This should be visible!"
   write_only = false
@@ -43,7 +31,7 @@ resource "random_password" "stack-password" {
 # If you accidentally print it out to the logs, no worries: we will obfuscate
 # every secret thing we know of.
 resource "spacelift_environment_variable" "stack-writeonly" {
-  stack_id = spacelift_stack.managed.id
+  stack_id = data.spacelift_current_stack.this.id
   name     = "STACK_SECRET"
   value    = random_password.stack-password.result
 }
@@ -61,9 +49,9 @@ data "spacelift_ips" "ips" {}
 #
 # https://docs.spacelift.io/concepts/environment#mounted-files
 resource "spacelift_mounted_file" "stack-plaintext-file" {
-  stack_id      = spacelift_stack.managed.id
+  stack_id      = data.spacelift_current_stack.this.id
   relative_path = "stack-plaintext-ips.json"
-  content       = base64encode(jsonencode(data.spacelift_ips.ips.ips))
+  content       = base64encode(jsonencode(data.spacelift_ips.ips))
   write_only    = false
 }
 
@@ -71,7 +59,7 @@ resource "spacelift_mounted_file" "stack-plaintext-file" {
 # write-only mounted files cannot be accessed neither from the GUI nor from the
 # GraphQL API.
 resource "spacelift_mounted_file" "stack-secret-file" {
-  stack_id      = spacelift_stack.managed.id
+  stack_id      = data.spacelift_current_stack.this.id
   relative_path = "stack-secret-password.json"
   content       = base64encode(jsonencode({ password = random_password.stack-password.result }))
 }
