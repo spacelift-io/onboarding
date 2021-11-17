@@ -7,4 +7,7 @@ package spacelift
 #
 # https://docs.spacelift.io/concepts/policy/stack-access-policy
 
-read { input.session.teams[_] == "Engineering" }
+read { input.session.teams[_] == "SRE" }
+read { input.session.teams[_] == "DevInfra"}
+
+sample { true }
