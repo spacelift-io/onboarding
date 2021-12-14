@@ -82,21 +82,3 @@ resource "spacelift_policy_attachment" "task" {
   policy_id = spacelift_policy.task.id
   stack_id  = data.spacelift_current_stack.this.id
 }
-
-# LOGIN POLICY
-#
-# This example login policy gives everyone in the GitHub organization access to
-# Spacelift and makes all members of the GitHub "DevOps" team admins.
-#
-# Note that unlike all other policies, login policies operate on the global
-# level and are not attached to individual stacks.
-#
-# You can read more about login policies here:
-#
-# https://docs.spacelift.io/concepts/policy/login-policy
-resource "spacelift_policy" "login" {
-  type = "LOGIN"
-
-  name = "DevOps are admins"
-  body = file("${path.module}/policies/login.rego")
-}
