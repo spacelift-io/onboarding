@@ -26,7 +26,6 @@ resource "spacelift_stack_destructor" "onboarding-demo-stack" {
     spacelift_policy.push,
     spacelift_policy_attachment.task,
     spacelift_policy.task,
-    spacelift_policy_attachment.login,
     spacelift_policy.login
   ]
 }
