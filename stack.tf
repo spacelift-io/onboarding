@@ -1,7 +1,7 @@
 data "spacelift_current_stack" "this" {}
 
 resource "spacelift_stack_destructor" "onboarding-demo-stack" {
-  stack_id = data.spacelift_current_stack.this
+  stack_id = data.spacelift_current_stack.this.id
 
   depends_on = [
     spacelift_environment_variable.stack-plaintext,
