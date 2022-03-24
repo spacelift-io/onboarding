@@ -1,5 +1,36 @@
 data "spacelift_current_stack" "this" {}
 
+resource "spacelift_stack_destructor" "onboarding-demo-stack" {
+  stack_id = data.spacelift_current_stack.this
+
+  depends_on = [
+    spacelift_environment_variable.stack-plaintext,
+    spacelift_environment_variable.stack-writeonly,
+    random_password.stack-password,
+    spacelift_mounted_file.stack-plaintext-file,
+    spacelift_mounted_file.stack-secret-file,
+
+    spacelift_context_attachment.managed,
+    spacelift_context.managed,
+    spacelift_environment_variable.context-plaintext,
+    spacelift_environment_variable.context-writeonly,
+    random_password.context-password,
+    spacelift_mounted_file.context-plaintext-file,
+    spacelift_mounted_file.context-secret-file,
+
+    spacelift_policy_attachment.access,
+    spacelift_policy.access,
+    spacelift_policy_attachment.plan,
+    spacelift_policy.plan,
+    spacelift_policy_attachment.push,
+    spacelift_policy.push,
+    spacelift_policy_attachment.task,
+    spacelift_policy.task,
+    spacelift_policy_attachment.login,
+    spacelift_policy.login
+  ]
+}
+
 # This is an environment variable defined on the stack level. Stack-level
 # environment variables take precedence over those attached via contexts.
 # This environment variable has its write_only bit explicitly set to false, which
