@@ -62,23 +62,3 @@ resource "spacelift_policy_attachment" "push" {
   policy_id = spacelift_policy.push.id
   stack_id  = data.spacelift_current_stack.this.id
 }
-
-# TASK POLICY
-#
-# This task policy only allows you to exectute a few selected commands.
-#
-# You can read more about task policies here:
-#
-# https://docs.spacelift.io/concepts/policy/task-run-policy
-resource "spacelift_policy" "task" {
-  type = "TASK"
-
-  name = "Allow only safe commands"
-  body = file("${path.module}/policies/task.rego")
-}
-
-# Task policies only take effect when attached to the stack.
-resource "spacelift_policy_attachment" "task" {
-  policy_id = spacelift_policy.task.id
-  stack_id  = data.spacelift_current_stack.this.id
-}
