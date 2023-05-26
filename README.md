@@ -7,4 +7,4 @@
 - [connect your Slack workspace](https://docs.spacelift.io/integrations/chatops/slack.html);
 - learn about our native [cloud integrations](https://docs.spacelift.io/integrations/cloud-providers);
 - set up [SSO for your organization](https://docs.spacelift.io/integrations/single-sign-on);
-- start a [Spacelift agent](https://docs.spacelift.io/concepts/private-worker-pools) in your own infrastructure (yes, it will run on your laptop, too);
+- start a [Spacelift agent](https://docs.spacelift.io/concepts/worker-pools#launch-private-worker-pool) in your own infrastructure (yes, it will run on your laptop, too);
